@@ -184,8 +184,8 @@ int main()
                 fprintf(stderr, "L'infrasctructure audio de la librairie MLV ne s'est pas correctement initialisé.");
                 exit(1);
             }
-            /*sound = MLV_load_music("sound/ffvii.wav");
-            MLV_play_music(sound, 1., 400);*/
+            sound = MLV_load_music("sound/music.wav");
+            MLV_play_music(sound, 1., 400);
             if (var_charger != 1)
             {
                 init_terrain(&t);
