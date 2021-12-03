@@ -234,41 +234,40 @@ int main()
                     }
                 }
                 MLV_actualise_window();
-                charger_piece_terrain(&p, &t);
+                charger_piece_terrain(&p,&t);
                 cree_piecealea(&suivant);
                 affiche_terrain_mlv(&t, &suivant, &p, &score, galaxie);
 
-                while (b == 1)
-                {
+                while (b == 1){
                     event = MLV_get_event(
                         &sym, &mod, NULL,
                         &texte, NULL,
                         NULL, NULL, NULL,
                         &state);
-                    switch (event)
-                    {
+                    switch (event){
+                        
                     case MLV_NONE:
                         break;
                     case MLV_KEY:
-                        if (sym == MLV_KEYBOARD_j && state == MLV_PRESSED)
+                        if (sym == MLV_KEYBOARD_LEFT && state == MLV_PRESSED)
                         {
                             decale_piece_gauche(&t, &p);
                             MLV_flush_event_queue();
                         }
-                        if (sym == MLV_KEYBOARD_l && state == MLV_PRESSED)
+                        if (sym == MLV_KEYBOARD_RIGHT && state == MLV_PRESSED)
                         {
                             decale_piece_droite(&t, &p);
                             MLV_flush_event_queue();
                         }
 
-                        if (sym == MLV_KEYBOARD_d && state == MLV_PRESSED)
+                        if (sym == MLV_KEYBOARD_UP && state == MLV_PRESSED)
                         {
                             rotat_piece_terrain(&p, &t);
                             affiche_terrain_mlv(&t, &suivant, &p, &score, galaxie);
                             MLV_flush_event_queue();
                         }
 
-                        if (sym == MLV_KEYBOARD_k && state == MLV_PRESSED)
+                        if (sym == MLV_KEYBOARD_DOWN && state == MLV_PRESSED)
                         {
                             accelere_piece(&t, &p);
                         }
