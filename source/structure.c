@@ -112,8 +112,8 @@ void tourne_piece(p_piece p)
   init_matrice(r);
   rotat_matrice(p->forme, r);
 }
-void rotat_piece_terrain(p_piece p, terrain *t)
-{
+
+void rotat_piece_terrain(p_piece p, terrain *t){
   int i, j;
   if (peut_tourner_piece(t, p))
   {
@@ -164,8 +164,8 @@ void tombe_piece(terrain *t, p_piece p)
     charger_piece_terrain(p, t);
   }
 }
-void accelere_piece(terrain *t, p_piece p)
-{
+void accelere_piece(terrain *t, p_piece p){
+
   tombe_piece(t, p);
   charger_piece_terrain(p, t);
   MLV_actualise_window();
@@ -173,6 +173,8 @@ void accelere_piece(terrain *t, p_piece p)
   charger_piece_terrain(p, t);
   MLV_actualise_window();
 }
+
+
 int peut_tomber_piece(terrain *t)
 {
   int i, j;
@@ -276,8 +278,7 @@ void decale_piece_gauche(terrain *t, p_piece p)
   }
 }
 
-void decale_piece_droite(terrain *t, p_piece p)
-{
+void decale_piece_droite(terrain *t, p_piece p){
   int i, j;
   if (peut_decaler_droite(t))
   {
