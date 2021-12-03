@@ -904,8 +904,7 @@ int verif_click_pause(int x, int y)
   return 0;
 }
 
-void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_channels, MLV_Image *images[5])
-{
+void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_channels, MLV_Image *images[5]){
   char *file_path_of_sound = "./sound/kameffect.wav";
   int toto;
   MLV_Sound *sound;
@@ -964,12 +963,12 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   }*/
 
     MLV_play_animation_player(animation_player);
-    if (toto != 12)
+    if (toto != 12){
       MLV_draw_image_from_animation_player(animation_player, 0, 400, position_y);
-
-    else
+    }
+    else{
       MLV_draw_image_from_animation_player(animation_player, 0, 400, position_y - 20);
-
+    }
     MLV_actualise_window();
     MLV_delay_according_to_frame_rate();
   }
@@ -984,8 +983,8 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   MLV_free_image(image);
 }
 
-void afficher_menu_save(MLV_Font *font, int *x, int *y)
-{
+void afficher_menu_save(MLV_Font *font, int *x, int *y){
+    
   int coordonnee_x_polygone_1[6] = {360, 400, 860, 900, 860, 400};
   int coordonnee_y_polygone_1[6] = {110, 160, 160, 110, 50, 50};
 
@@ -1011,36 +1010,58 @@ void afficher_menu_save(MLV_Font *font, int *x, int *y)
 
   MLV_actualise_window();
 
-  MLV_get_mouse_position(x, y);
+  MLV_get_mouse_position(x,y);
   while ((*x >= 355 && *x <= 900) && (*y >= 49 && *y <= 159))
   {
-    MLV_get_mouse_position(x, y);
+    MLV_get_mouse_position(x,y);
     MLV_draw_filled_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_rgba(162, 25, 42, 2));
     MLV_actualise_window();
   }
   MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
 
-  while ((*x >= 355 && *x <= 900) && (*y >= 199 && *y <= 309))
-  {
-    MLV_get_mouse_position(x, y);
+  while ((*x >= 355 && *x <= 900) && (*y >= 199 && *y <= 309)){
+    MLV_get_mouse_position(x,y);
     MLV_draw_filled_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_rgba(55, 179, 166, 2));
     MLV_actualise_window();
   }
   MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
 
-  while ((*x >= 355 && *x <= 900) && (*y >= 349 && *y <= 459))
-  {
-    MLV_get_mouse_position(x, y);
+  while ((*x >= 355 && *x <= 900) && (*y >= 349 && *y <= 459)){
+    MLV_get_mouse_position(x,y);
     MLV_draw_filled_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_rgba(42, 62, 236, 2));
     MLV_actualise_window();
   }
   MLV_draw_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_COLOR_BLUE);
 
-  while ((*x >= 355 && *x <= 900) && (*y >= 499 && *y <= 609))
-  {
-    MLV_get_mouse_position(x, y);
+  while ((*x >= 355 && *x <= 900) && (*y >= 499 && *y <= 609)){
+      
+    MLV_get_mouse_position(x,y);
     MLV_draw_filled_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_rgba(206, 181, 29, 2));
     MLV_actualise_window();
   }
   MLV_draw_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_COLOR_YELLOW);
+
 }
+
+
+int verif_click_save(int x, int y){
+    
+    if ((x >= 355 && x <= 900) && (y >= 49 && y <= 159)){
+        return 1;
+    }
+    
+    if ((x >= 355 && x <= 900) && (y >= 199 && y <= 309)){
+        return 2;
+    }
+  
+    if ((x >= 355 && x <= 900) && (y >= 349 && y <= 459)){
+        return 3;
+    }
+    
+    if ((x >= 355 && x <= 900) && (y >= 499 && y <= 609)){
+        return 4;
+    }
+    return 0;
+}
+
+
