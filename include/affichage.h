@@ -26,5 +26,6 @@ void afficher_score();
 void afficher_pause(MLV_Font *font);
 void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_channels, MLV_Image *images[4]);
 void afficher_menu_save(MLV_Font *font, int *x, int *y);
+int verif_click_save(int x,int y);
 
 #endif
