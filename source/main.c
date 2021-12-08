@@ -282,7 +282,7 @@ int main()
                                         afficher_menu_save(font2,&cordx,&cordy);
                                         event2 = MLV_get_event(NULL, NULL, NULL, NULL, NULL, &cordx,&cordy,NULL,&state);
                                         if(event2==MLV_MOUSE_BUTTON && state==MLV_PRESSED){
-                                            if(verif_click_save(cordx,cordy)==1){ /*|| (verif_click_save(cordx,cordy)==2) || (verif_click_save(cordx,cordy)==3))*/
+                                            if(verif_click_save(cordx,cordy)==1){
                                                 save_partie(&t,"slot1.txt",&score);
                                                 var_save=2;
                                             }
@@ -295,7 +295,6 @@ int main()
                                                 var_save=4;
                                             }
                                              if(verif_click_save(cordx,cordy)==4){
-                                                save_partie(&t,"slot3.txt",&score);
                                                 var_save=5;
                                             }
                                         }
