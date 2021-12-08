@@ -983,67 +983,6 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   MLV_free_image(image);
 }
 
-void afficher_menu_save(MLV_Font *font, int *x, int *y){
-    
-  int coordonnee_x_polygone_1[6] = {360, 400, 860, 900, 860, 400};
-  int coordonnee_y_polygone_1[6] = {110, 160, 160, 110, 50, 50};
-
-  int coordonnee_x_polygone_2[6] = {360, 400, 860, 900, 860, 400};
-  int coordonnee_y_polygone_2[6] = {260, 310, 310, 260, 200, 200};
-
-  int coordonnee_x_polygone_3[6] = {360, 400, 860, 900, 860, 400};
-  int coordonnee_y_polygone_3[6] = {410, 460, 460, 410, 350, 350};
-
-  int coordonnee_x_polygone_4[6] = {360, 400, 860, 900, 860, 400};
-  int coordonnee_y_polygone_4[6] = {560, 610, 610, 560, 500, 500};
-  MLV_clear_window(MLV_COLOR_BLACK);
-
-  MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
-  MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
-  MLV_draw_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_COLOR_BLUE);
-  MLV_draw_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_COLOR_YELLOW);
-
-  MLV_draw_text_with_font(570, 85, "SLOT 1", font, MLV_rgba(255, 255, 255, 255));
-  MLV_draw_text_with_font(570, 235, "SLOT 2", font, MLV_rgba(255, 255, 255, 255));
-  MLV_draw_text_with_font(570, 385, "SLOT 3", font, MLV_rgba(255, 255, 255, 255));
-  MLV_draw_text_with_font(570, 535, "RETOUR", font, MLV_rgba(255, 255, 255, 255));
-
-  MLV_actualise_window();
-
-  MLV_get_mouse_position(x,y);
-  while ((*x >= 355 && *x <= 900) && (*y >= 49 && *y <= 159))
-  {
-    MLV_get_mouse_position(x,y);
-    MLV_draw_filled_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_rgba(162, 25, 42, 2));
-    MLV_actualise_window();
-  }
-  MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
-
-  while ((*x >= 355 && *x <= 900) && (*y >= 199 && *y <= 309)){
-    MLV_get_mouse_position(x,y);
-    MLV_draw_filled_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_rgba(55, 179, 166, 2));
-    MLV_actualise_window();
-  }
-  MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
-
-  while ((*x >= 355 && *x <= 900) && (*y >= 349 && *y <= 459)){
-    MLV_get_mouse_position(x,y);
-    MLV_draw_filled_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_rgba(42, 62, 236, 2));
-    MLV_actualise_window();
-  }
-  MLV_draw_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_COLOR_BLUE);
-
-  while ((*x >= 355 && *x <= 900) && (*y >= 499 && *y <= 609)){
-      
-    MLV_get_mouse_position(x,y);
-    MLV_draw_filled_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_rgba(206, 181, 29, 2));
-    MLV_actualise_window();
-  }
-  MLV_draw_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_COLOR_YELLOW);
-
-}
-
-
 int verif_click_save(int x, int y){
     
     if ((x >= 355 && x <= 900) && (y >= 49 && y <= 159)){
@@ -1065,3 +1004,80 @@ int verif_click_save(int x, int y){
 }
 
 
+void afficher_menu_save(MLV_Font *font, int *x, int *y){
+    
+    int coordonnee_x_polygone_1[6] = {360, 400, 860, 900, 860, 400};
+    int coordonnee_y_polygone_1[6] = {110, 160, 160, 110, 50, 50};
+
+    int coordonnee_x_polygone_2[6] = {360, 400, 860, 900, 860, 400};
+    int coordonnee_y_polygone_2[6] = {260, 310, 310, 260, 200, 200};
+
+    int coordonnee_x_polygone_3[6] = {360, 400, 860, 900, 860, 400};
+    int coordonnee_y_polygone_3[6] = {410, 460, 460, 410, 350, 350};
+
+    int coordonnee_x_polygone_4[6] = {360, 400, 860, 900, 860, 400};
+    int coordonnee_y_polygone_4[6] = {560, 610, 610, 560, 500, 500};
+    /* MLV_Event event = MLV_NONE; */
+    /* MLV_Button_state state; */
+    MLV_clear_window(MLV_COLOR_BLACK);
+    MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
+    MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
+    MLV_draw_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_COLOR_BLUE);
+    MLV_draw_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_COLOR_YELLOW);
+
+    MLV_draw_text_with_font(570, 85, "SLOT 1", font, MLV_rgba(255, 255, 255, 255));
+    MLV_draw_text_with_font(570, 235, "SLOT 2", font, MLV_rgba(255, 255, 255, 255));
+    MLV_draw_text_with_font(570, 385, "SLOT 3", font, MLV_rgba(255, 255, 255, 255));
+    MLV_draw_text_with_font(570, 535, "RETOUR", font, MLV_rgba(255, 255, 255, 255));
+
+    MLV_actualise_window();
+  
+    MLV_get_mouse_position(x,y);
+    
+    while ((*x >= 355 && *x <= 900) && (*y >= 49 && *y <= 159)){
+        MLV_get_mouse_position(x,y);
+        
+        MLV_draw_filled_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_rgba(162, 25, 42, 2));
+        MLV_actualise_window();
+    }
+    MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
+    
+
+    while ((*x >= 355 && *x <= 900) && (*y >= 199 && *y <= 309)){
+        MLV_get_mouse_position(x,y);
+        MLV_draw_filled_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_rgba(55, 179, 166, 2));
+        /* event = MLV_get_event(NULL, NULL, NULL, NULL, NULL, x,y,NULL,&state);*/
+        /* if(event==MLV_MOUSE_BUTTON && state==MLV_PRESSED){ */
+        /*     if(verif_click_save(*x,*y)==2){ */
+        /*         MLV_clear_window(MLV_COLOR_RED); */
+        /*         MLV_actualise_window(); */
+        /*     } */
+        /* } */
+        MLV_actualise_window();
+    }
+    MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
+    
+    while ((*x >= 355 && *x <= 900) && (*y >= 349 && *y <= 459)){
+        MLV_get_mouse_position(x,y);
+        MLV_draw_filled_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_rgba(42, 62, 236, 2));
+        MLV_actualise_window();
+    }
+    MLV_draw_polygon(coordonnee_x_polygone_3, coordonnee_y_polygone_3, 6, MLV_COLOR_BLUE);
+
+    while ((*x >= 355 && *x <= 900) && (*y >= 499 && *y <= 609)){
+        MLV_get_mouse_position(x,y);
+        MLV_draw_filled_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_rgba(206, 181, 29, 2));
+        MLV_actualise_window();
+    }
+    MLV_draw_polygon(coordonnee_x_polygone_4, coordonnee_y_polygone_4, 6, MLV_COLOR_YELLOW);
+}
+
+
+
+void save_success(MLV_Font * font){
+
+    MLV_clear_window(MLV_COLOR_BLACK);
+    MLV_draw_text_with_font(400, 320, "Sauvegarde reussie !", font, MLV_rgba(255, 255, 255, 255));
+    MLV_actualise_window();
+
+}
