@@ -159,13 +159,43 @@ int main()
                 click = 1;
             }
         }
-        if (afficher == 2)
-        {
-            init_terrain(&t);
+        if (afficher == 2){
+            while(afficher==2){
+                afficher_menu_save(font2,&cordx,&cordy);
+                event2 = MLV_get_event(NULL, NULL, NULL, NULL, NULL, &cordx,&cordy,NULL,&state);
+                if(event2==MLV_MOUSE_BUTTON && state==MLV_PRESSED){
+                    if(verif_click_save(cordx,cordy)==1){
+                        init_terrain(&t);
+                        charger_partie(&t,"slot1.txt",&score);
+                        var_charger=1;
+                        var_save=1;
+                        afficher=1;
+                    }
+                    if(verif_click_save(cordx,cordy)==2){
+                        init_terrain(&t);
+                        charger_partie(&t,"slot2.txt",&score);
+                        var_charger=1;
+                        var_save=1;
+                        afficher=1;
+                    }
+                    if(verif_click_save(cordx,cordy)==3){
+                        init_terrain(&t);
+                        charger_partie(&t,"slot3.txt",&score);
+                        var_charger=1;
+                        var_save=1;
+                        afficher=1;
+                    }
+                    if(verif_click_save(cordx,cordy)==4){
+                        afficher=0;
+                        break;
+                    }
+                }
+            }
+            /*init_terrain(&t);
             charger_partie(&t, "slot3.txt", &score);
             var_charger = 1;
             var_save=1;
-            afficher = 1;
+            afficher = 1;*/
         }
 
         if (afficher == 3)
