@@ -12,11 +12,12 @@ int main()
 {
 
     int x = 0, y = 0, j, i, v, w, cordx, cordy;
-    int choix, click, afficher, var_charger=cordx=cordy/*valeur_click_save*/=0;
+    int choix, click, afficher, var_charger=cordx=cordy=0;
     int b;
-    int var_save=1;
+    int var_save=1,var_pseudo=1;
     int score = 0;
     char *texte = NULL;
+    char * pseudo;
     int toto;
     piece p;
     piece suivant;
@@ -25,7 +26,7 @@ int main()
     MLV_Button_state state;
     MLV_Keyboard_modifier mod = MLV_KEYBOARD_KMOD_NONE;
     MLV_Keyboard_button sym = MLV_KEYBOARD_NONE;
-    MLV_Event event,event2 = MLV_NONE;
+    MLV_Event event,event2= MLV_NONE;
     MLV_Font *font;
     MLV_Font *font2;
     MLV_Font *font3;
@@ -45,31 +46,24 @@ int main()
 
     srand(time(NULL));
 
-    do
-    {
+    do{
         MLV_clear_window(MLV_COLOR_BLACK);
         MLV_draw_image(wallpaper, 0, 0);
         event = MLV_get_event(&sym, &mod, NULL, NULL, NULL, &x, &y, NULL, &state);
-        if (afficher == 0)
-        {
+        if (afficher == 0){
             afficher_menu(font, font2, font3, choix);
-            if (event == MLV_KEY)
-            {
-                if (sym == MLV_KEYBOARD_z && state != MLV_RELEASED)
-                {
+            if (event == MLV_KEY){
+                if (sym == MLV_KEYBOARD_z && state != MLV_RELEASED){
                     click = 0;
-                    if (choix == 0)
-                    {
+                    if (choix == 0){
                         choix = 3;
                     }
-                    else
-                    {
+                    else{
                         choix--;
                     }
                 }
 
-                if (sym == MLV_KEYBOARD_RETURN && state == MLV_PRESSED)
-                {
+                if (sym == MLV_KEYBOARD_RETURN && state == MLV_PRESSED){
                     if (click == 0)
                     {
                         if (choix != 3)
@@ -161,26 +155,27 @@ int main()
         }
         if (afficher == 2){
             while(afficher==2){
+                var_pseudo=0;
                 afficher_menu_save(font2,&cordx,&cordy);
                 event2 = MLV_get_event(NULL, NULL, NULL, NULL, NULL, &cordx,&cordy,NULL,&state);
                 if(event2==MLV_MOUSE_BUTTON && state==MLV_PRESSED){
                     if(verif_click_save(cordx,cordy)==1){
                         init_terrain(&t);
-                        charger_partie(&t,"slot1.txt",&score);
+                        charger_partie(&t,"slot1.txt",&score,pseudo);
                         var_charger=1;
                         var_save=1;
                         afficher=1;
                     }
                     if(verif_click_save(cordx,cordy)==2){
                         init_terrain(&t);
-                        charger_partie(&t,"slot2.txt",&score);
+                        charger_partie(&t,"slot2.txt",&score,pseudo);
                         var_charger=1;
                         var_save=1;
                         afficher=1;
                     }
                     if(verif_click_save(cordx,cordy)==3){
                         init_terrain(&t);
-                        charger_partie(&t,"slot3.txt",&score);
+                        charger_partie(&t,"slot3.txt",&score,pseudo);
                         var_charger=1;
                         var_save=1;
                         afficher=1;
@@ -191,11 +186,6 @@ int main()
                     }
                 }
             }
-            /*init_terrain(&t);
-            charger_partie(&t, "slot3.txt", &score);
-            var_charger = 1;
-            var_save=1;
-            afficher = 1;*/
         }
 
         if (afficher == 3)
@@ -214,6 +204,12 @@ int main()
                 fprintf(stderr, "L'infrasctructure audio de la librairie MLV ne s'est pas correctement initialisé.");
                 exit(1);
             }
+            if(var_pseudo==1){
+                MLV_clear_window(MLV_COLOR_BLACK);
+                MLV_wait_input_box_with_font(340,175,600,200,MLV_COLOR_GREEN, MLV_COLOR_GREEN,MLV_COLOR_BLACK,"Pseudo :",&pseudo,font);
+                input_nom();
+            }
+            
             sound = MLV_load_music("sound/music.wav");
             MLV_play_music(sound, 1.,400);
             if (var_charger != 1){
@@ -242,6 +238,7 @@ int main()
                             MLV_free_music(sound);
                             MLV_free_audio();
                             toto = b = score = 0;
+                            var_pseudo=0;
                             break;
                         }
                         if (verif_click(v, w) == 2){
@@ -289,6 +286,7 @@ int main()
 
                         if (sym == MLV_KEYBOARD_DOWN && state == MLV_PRESSED){
                             accelere_piece(&t, &p);
+                            MLV_flush_event_queue();
                         }
                         if (sym == MLV_KEYBOARD_ESCAPE && state == MLV_PRESSED){
                             afficher_pause(font2);
@@ -313,18 +311,18 @@ int main()
                                         event2 = MLV_get_event(NULL, NULL, NULL, NULL, NULL, &cordx,&cordy,NULL,&state);
                                         if(event2==MLV_MOUSE_BUTTON && state==MLV_PRESSED){
                                             if(verif_click_save(cordx,cordy)==1){
-                                                save_partie(&t,"slot1.txt",&score);
+                                                save_partie(&t,"slot1.txt",&score,pseudo);
                                                 var_save=2;
                                             }
                                             if(verif_click_save(cordx,cordy)==2){
-                                                save_partie(&t,"slot2.txt",&score);
+                                                save_partie(&t,"slot2.txt",&score,pseudo);
                                                 var_save=3;
                                             }
-                                             if(verif_click_save(cordx,cordy)==3){
-                                                save_partie(&t,"slot3.txt",&score);
+                                            if(verif_click_save(cordx,cordy)==3){
+                                                save_partie(&t,"slot3.txt",&score,pseudo);
                                                 var_save=4;
                                             }
-                                             if(verif_click_save(cordx,cordy)==4){
+                                            if(verif_click_save(cordx,cordy)==4){
                                                 var_save=5;
                                             }
                                         }
@@ -371,7 +369,7 @@ int main()
                     }
 
                     affiche_terrain_mlv(&t, &suivant, &p, &score, galaxie);
-                    dessin_score(font2, &score);
+                    dessin_score(font2, &score,pseudo);
                     if (score >= 200)
                     {
                         MLV_wait_milliseconds(120);
@@ -395,6 +393,7 @@ int main()
         }
         MLV_actualise_window();
     } while (!(sym == MLV_KEYBOARD_b && state == MLV_RELEASED)); /* tant qu'on n'appuie pas sur le boutton b */
+    free(pseudo);
     MLV_free_font(font);
     MLV_free_font(font2);
     MLV_free_font(font3);
