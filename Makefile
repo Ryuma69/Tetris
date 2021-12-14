@@ -28,6 +28,6 @@ save.o: source/save.c
 
 
 clean:
-	rm -r *.o 
+	rm -r *.o
 clean_exe:
 	rm -rf *.o tetris
