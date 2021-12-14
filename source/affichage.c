@@ -6,18 +6,15 @@
 #define LONG 26
 #define LARG 15
 
-void ouvrir_fenetre(char *nomfenetre)
-{
+void ouvrir_fenetre(char *nomfenetre){
   MLV_create_window(nomfenetre, nomfenetre, 1280, 720);
 }
 
-void actualise_fenetre()
-{
+void actualise_fenetre(){
   MLV_actualise_window();
 }
 
-void affiche_terrain_mlv(terrain *t, p_piece suivant, p_piece actuelle, int *score, MLV_Image *image)
-{
+void affiche_terrain_mlv(terrain *t, p_piece suivant, p_piece actuelle, int *score, MLV_Image *image){
   int i, j, r, g, b;
   int coordonnee1_x[3];
   int coordonnee1_y[3];
@@ -30,10 +27,8 @@ void affiche_terrain_mlv(terrain *t, p_piece suivant, p_piece actuelle, int *sco
   MLV_draw_image(image, 0, 0);
 
   affiche_piece_suivante(suivant);
-  for (i = 0; i < LONG; i++)
-  {
-    for (j = 0; j < LARG; j++)
-    {
+  for (i = 0; i < LONG; i++){
+    for (j = 0; j < LARG; j++){
       if (t->field[i][j] == 0)
       {
         MLV_draw_filled_rectangle(j * 25 + 454, i * 25 + 46, 25, 25, MLV_COLOR_BLACK);
@@ -576,11 +571,12 @@ void afficher_menu(MLV_Font *font, MLV_Font *font2, MLV_Font *font3, int choix)
   }
 }
 
-void dessin_score(MLV_Font *font, int *score)
+void dessin_score(MLV_Font *font, int *score,char * nom)
 {
   MLV_draw_rectangle(235, 60, 200, 200, MLV_rgba(150, 215, 0, 255));
   MLV_draw_text_with_font(275, 100, "SCORE", font, MLV_rgba(150, 215, 0, 255));
-  MLV_draw_text_with_font(280, 180, "%d", font, MLV_rgba(150, 215, 0, 255), *score);
+  MLV_draw_text_with_font(280, 160, "%d", font, MLV_rgba(150, 215, 0, 255), *score);
+  MLV_draw_text_with_font(240, 220, "%s", font, MLV_rgba(150, 215, 0, 255), nom);
 }
 
 void affichage_game_over(MLV_Font *font)
@@ -836,8 +832,7 @@ void affiche_piece_suivante(p_piece p)
   }
 }
 
-void afficher_score()
-{
+void afficher_score(){
   int tab[10];
   int i;
   MLV_Font *font;
@@ -870,8 +865,7 @@ void afficher_score()
   MLV_free_font(font5);
 }
 
-void afficher_pause(MLV_Font *font)
-{
+void afficher_pause(MLV_Font *font){
 
   MLV_draw_filled_rectangle(300, 200, 900, 300, MLV_rgba(0, 0, 45, 235));
   MLV_draw_filled_rectangle(325, 400, 245, 80, MLV_rgba(40, 20, 18, 235));
@@ -906,7 +900,6 @@ int verif_click_pause(int x, int y)
 
 void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_channels, MLV_Image *images[5]){
   char *file_path_of_sound = "./sound/kameffect.wav";
-  int toto;
   MLV_Sound *sound;
   MLV_Animation *animation;
   int position_y = 610, compteur = 12;
@@ -916,17 +909,14 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   image = MLV_load_image(chemin);
   animation = MLV_create_animation(frames, layers, nb_channels);
   animation_player = MLV_create_animation_player(animation);
-  if (!image)
-  {
+  if (!image){
     fprintf(stderr, "Impossible de lire l'image depuis le chemin %s.\n", chemin);
     exit(-1);
   }
+  
   sound = MLV_load_sound(file_path_of_sound);
-  if (!sound)
-  {
-    fprintf(
-        stderr, "It was impossible to load the file %s.\n",
-        file_path_of_sound);
+  if (!sound){
+    fprintf(stderr, "It was impossible to load the file %s.\n",file_path_of_sound);
     exit(1);
   }
 
@@ -939,36 +929,17 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   MLV_add_frame_in_animation(images + 1, &sound, 4, animation);
   MLV_add_frame_in_animation(images + 2, &sound, 4, animation);
   MLV_add_frame_in_animation(images + 3, &sound, 4, animation);
-  /* MLV_add_frame_in_animation(images + 4, NULL, 4, animation);*/
   MLV_play_animation_player(animation_player);
   MLV_turn_on_sound_of_animation_player(animation_player, 0);
   MLV_change_sound_volume_of_animation_player(animation_player, 0, 10.0);
-  MLV_change_frame_rate(24);
-  toto = 0;
+  MLV_change_frame_rate(20);
   MLV_play_sound_from_animation_player(animation_player, 0);
 
-  while (compteur > 0)
-  {
+  while (compteur > 0){
     compteur--;
-    toto++;
     MLV_update_animation_player(animation_player);
-    /*avance += pas;*/
-    /*if( avance > 1280-40 ){
-    MLV_play_revert_animation_player( animation_player );
-    pas = -pas;
-  }
-  if( avance < 0 ){
-  MLV_play_animation_player( animation_player );
-  pas = -pas;
-  }*/
-
     MLV_play_animation_player(animation_player);
-    if (toto != 12){
-      MLV_draw_image_from_animation_player(animation_player, 0, 400, position_y);
-    }
-    else{
-      MLV_draw_image_from_animation_player(animation_player, 0, 400, position_y - 20);
-    }
+    MLV_draw_image_from_animation_player(animation_player, 0, 400, position_y);
     MLV_actualise_window();
     MLV_delay_according_to_frame_rate();
   }
@@ -978,8 +949,6 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
   MLV_free_image(images[1]);
   MLV_free_image(images[2]);
   MLV_free_image(images[3]);
-  /*MLV_free_image(images[4]);
-   */
   MLV_free_image(image);
 }
 
@@ -1017,8 +986,6 @@ void afficher_menu_save(MLV_Font *font, int *x, int *y){
 
     int coordonnee_x_polygone_4[6] = {360, 400, 860, 900, 860, 400};
     int coordonnee_y_polygone_4[6] = {560, 610, 610, 560, 500, 500};
-    /* MLV_Event event = MLV_NONE; */
-    /* MLV_Button_state state; */
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_polygon(coordonnee_x_polygone_1, coordonnee_y_polygone_1, 6, MLV_COLOR_RED);
     MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
@@ -1046,13 +1013,6 @@ void afficher_menu_save(MLV_Font *font, int *x, int *y){
     while ((*x >= 355 && *x <= 900) && (*y >= 199 && *y <= 309)){
         MLV_get_mouse_position(x,y);
         MLV_draw_filled_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_rgba(55, 179, 166, 2));
-        /* event = MLV_get_event(NULL, NULL, NULL, NULL, NULL, x,y,NULL,&state);*/
-        /* if(event==MLV_MOUSE_BUTTON && state==MLV_PRESSED){ */
-        /*     if(verif_click_save(*x,*y)==2){ */
-        /*         MLV_clear_window(MLV_COLOR_RED); */
-        /*         MLV_actualise_window(); */
-        /*     } */
-        /* } */
         MLV_actualise_window();
     }
     MLV_draw_polygon(coordonnee_x_polygone_2, coordonnee_y_polygone_2, 6, MLV_COLOR_CYAN);
@@ -1080,4 +1040,11 @@ void save_success(MLV_Font * font){
     MLV_draw_text_with_font(400, 320, "Sauvegarde reussie !", font, MLV_rgba(255, 255, 255, 255));
     MLV_actualise_window();
 
+}
+
+
+void input_nom(){
+
+    MLV_draw_all_input_boxes();
+    MLV_actualise_window();
 }
