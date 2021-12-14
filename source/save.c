@@ -11,51 +11,52 @@ void viderBuffer()
 
 
 void save_score(int *scoring){
-  /*Charger et afficher les fichier sauvegarder*/
-  int tab_score[10];
-  int i;
-  int j = 0;
-  int k = 0;
+    /*Charger et afficher les fichier sauvegarder*/
+    int tab_score[10];
+    int i;
+    int j = 0;
+    int k = 0;
 
-  FILE* fichier = NULL;
-  for(i=0;i<10;i++){
-    tab_score[i]=0;
-  }
-  fichier = fopen("score.txt","r+");
-  for(i=0; i < 10;i++){
-    if(fscanf(fichier,"%d\n",&tab_score[i])!=1){
-      printf("%d erreur\n",i);
+    FILE* fichier = NULL;
+    for(i=0;i<10;i++){
+        tab_score[i]=0;
     }
-  }
-
-  for(i=0; i < 10;i++){
-    k = i;
-    if(tab_score[i] < *scoring){
-      j = tab_score[i];
-      tab_score[i] = *scoring;
-      break;
+    fichier = fopen("score.txt","r+");
+    for(i=0; i < 10;i++){
+        if(fscanf(fichier,"%d\n",&tab_score[i])!=1){
+            printf("%d erreur\n",i);
+        }
     }
-  }
 
-  for(i=k+1; i<10;i++){
-    k = tab_score[i];
-    tab_score[i] = j;
-    j = k;
-  }
-  fclose(fichier);
-  fichier = fopen("score.txt","r+");
-
-  if(fichier==NULL){
-    printf("ce slot n'existe pas");
-    exit(-1);
-  }
-
-  if (fichier !=NULL){
-    for(i = 0; i < 10; i++){
-      fprintf(fichier, "%d\n",tab_score[i]);
+    for(i=0; i < 10;i++){
+        k = i;
+        if(tab_score[i] < *scoring){
+            j = tab_score[i];
+            tab_score[i] = *scoring;
+            break;
+        }
     }
-  }
-  fclose(fichier);
+
+    for(i=k+1; i<10;i++){
+        k = tab_score[i];
+        tab_score[i] = j;
+        j = k;
+    }
+  
+    fclose(fichier);
+    fichier = fopen("score.txt","r+");
+
+    if(fichier==NULL){
+        printf("ce slot n'existe pas");
+        exit(-1);
+    }
+
+    if (fichier !=NULL){
+        for(i = 0; i < 10; i++){
+            fprintf(fichier, "%d\n",tab_score[i]);
+        }
+    }
+    fclose(fichier);
 }
 
 int * lecture_score(int tab[]){
@@ -88,14 +89,14 @@ int * lecture_score(int tab[]){
 }
 
 
-void save_partie(terrain * t,char * chemin,int * score){
+void save_partie(terrain * t,char * chemin,int * score,char * nom){
   int i,j;
 
   FILE * fichier=NULL;
 
   fichier=fopen(chemin,"w+");
   if(fichier==NULL){
-    printf("YOU OUT OF LUCK\n");
+    printf("YOU'RE OUT OF LUCK\n");
   }
 
   for(i=0;i<LONG;i++){
@@ -105,18 +106,13 @@ void save_partie(terrain * t,char * chemin,int * score){
     fprintf(fichier,"\n");
   }
 
-  /* for(i=0;i<T;i++){ */
-  /*   for(j=0;j<T;j++){ */
-  /*     fprintf(fichier,"%d ",suivante->forme[i][j]); */
-  /*   } */
-  /*   fprintf(fichier,"\n"); */
-  /* } */
+  fprintf(fichier,"%s\n",nom);
 
   fprintf(fichier,"%d\n",*score);
   fclose(fichier);
 }
 
-void charger_partie(terrain * t,char * chemin,int * score){
+void charger_partie(terrain * t,char * chemin,int * score,char * nom){
   int i,j;
   FILE * fichier=NULL;
 
@@ -133,17 +129,12 @@ void charger_partie(terrain * t,char * chemin,int * score){
       }
     }
   }
-
-  /* for(i=0;i<T;i++){ */
-  /*   for(j=0;j<T;j++){ */
-  /*     if(fscanf(fichier,"%d ",&suivante->forme[i][j])!=1){ */
-  /*       printf("ERREUR CHARGE PIECE SUIVANTE\n"); */
-  /*     } */
-  /*   } */
-  /* } */
-
-  if(fscanf(fichier,"%d",score)!=1){
-    printf("ERREUR CHARGEMENT DE SCORE\n");
+  if(fscanf(fichier,"%s",nom)!=1){
+      printf("ERREUR CHARGEMENT DU NOM\n");
   }
+  if(fscanf(fichier,"%d",score)!=1){
+      printf("ERREUR CHARGEMENT DE SCORE\n");
+  }
+ 
   fclose(fichier);
 }
