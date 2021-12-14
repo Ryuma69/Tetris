@@ -13,7 +13,7 @@ void affiche_terrain_mlv(terrain *t, p_piece suivant, p_piece actuelle, int *sco
 void dessiner_triangle(int x, int y);
 void dessiner_croix_one(int x, int y);
 void afficher_menu(MLV_Font *font, MLV_Font *font2, MLV_Font *font3, int choix);
-void dessin_score(MLV_Font *font, int *score);
+void dessin_score(MLV_Font *font, int *score,char * nom);
 void affichage_game_over(MLV_Font *font);
 void animation_bouton_TA(MLV_Font *font);
 void animation_bouton_MENU(MLV_Font *font);
@@ -28,5 +28,5 @@ void animation(MLV_Image *image, char *chemin, int frames, int layers, int nb_ch
 void afficher_menu_save(MLV_Font *font, int *x, int *y);
 int verif_click_save(int x,int y);
 void save_success(MLV_Font * font);
-
+void input_nom();
 #endif
